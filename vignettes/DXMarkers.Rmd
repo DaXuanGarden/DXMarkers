@@ -1,0 +1,44 @@
+
+# DXMarkers
+
+## Introduction
+
+DXMarkers is a simple and effective tool for fast querying of known Marker cell types in the "CellMarker", "CellMarker2.0", and "PanglaoDB" databases.
+
+## Installation
+
+To install DXMarkers, use the following command in your R environment:
+
+```R
+# install.packages("devtools")
+devtools::install_github("DaXuanGarden/DXMarkers")
+```
+
+## Usage
+
+Here's a quick example of how to use DXMarkers to organize your data and perform one-click query for markers:
+
+```R
+library(DXMarkers)
+
+# Read the data from the top10_genes.csv file
+top10_data <- read.csv("top10_genes.csv")
+
+# Use the reshape_genes_wide function to organize the data
+sorted_result <- reshape_genes_wide(top10_data)
+
+# Read the top10_sorted_genes.csv file
+top10_genes_data <- read.csv("top10_sorted_genes.csv", stringsAsFactors = FALSE)
+
+# Use the annotate_markers function to query for markers
+DXMarkers_result <- annotate_markers(top10_genes_data, "Mouse", "Pancreas")
+
+# View data sources
+data_source <- "CellMarker"
+data <- view_data_source(data_source = data_source)
+```
+
+## Contact
+
+If you have any issues or questions, please open an issue on our GitHub page.
+```
