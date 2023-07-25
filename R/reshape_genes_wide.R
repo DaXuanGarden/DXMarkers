@@ -7,10 +7,10 @@
 reshape_genes_wide <- function(sorted_genes) {
   # 将数据按avg_log2FC从大到小排序，然后重塑成宽格式，每个cluster为一列
   genes_wide <- sorted_genes %>%
-    arrange(cluster, desc(avg_log2FC)) %>%
-    group_by(cluster) %>%
-    mutate(row = row_number()) %>%
-    pivot_wider(names_from = cluster, values_from = gene, id_cols = row, values_fill = "")
+    dplyr::arrange(cluster, desc(avg_log2FC)) %>%
+    dplyr::group_by(cluster) %>%
+    dplyr::mutate(row = dplyr::row_number()) %>%
+    tidyr::pivot_wider(names_from = cluster, values_from = gene, id_cols = row, values_fill = "")
 
   # 删除辅助的行编号列
   genes_wide$row <- NULL

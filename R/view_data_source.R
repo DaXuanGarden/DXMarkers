@@ -16,6 +16,11 @@ view_data_source <- function(data_source) {
   } else {
     stop("Invalid data source. Please choose from 'CellMarker', 'CellMarker2.0', or 'PanglaoDB'.")
   }
+
+  # 在数据集中添加一个新的列 "DataSource"
+  data$DataSource <- data_source
+
   return(data)
 }
+
 
