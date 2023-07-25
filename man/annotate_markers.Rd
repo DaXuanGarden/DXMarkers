@@ -2,27 +2,20 @@
 % Please edit documentation in R/annotate_markers.R
 \name{annotate_markers}
 \alias{annotate_markers}
-\title{Annotate Markers}
+\title{Annotate Cell and Gene Markers from Multiple Databases}
 \usage{
-annotate_markers(
-  top10_genes_data = NULL,
-  species = NULL,
-  tissue_class = NULL,
-  data_source = NULL
-)
+annotate_markers(top10_genes_data, species, tissue_class)
 }
 \arguments{
-\item{top10_genes_data}{A named list where names are cluster identifiers and values are vectors of top 10 gene symbols for each cluster.}
+\item{species}{species name, 'Mouse' or 'Human'}
 
-\item{species}{A character string specifying the species. It can be either "Human" or "Mouse".}
+\item{tissue_class}{tissue class to filter}
 
-\item{tissue_class}{A character string specifying the tissue class.}
-
-\item{data_source}{A character string specifying the data source to view. It can be either "CellMarker", "CellMarker2.0", or "PanglaoDB".}
+\item{top10genes_path}{file path of the top 10 genes csv file}
 }
 \value{
-A list with two components: "all_filtered_data" which is a list where each element is a data frame of filtered data for each cluster, and "all_filtered_data_df" which is a data frame combining all the filtered data.
+a dataframe of the filtered data
 }
 \description{
-This function filters a preloaded dataset based on provided top 10 genes for each cluster, species, and tissue class. It also allows to view the data from a particular data source.
+This function annotates cell and gene markers from multiple databases.
 }
