@@ -179,3 +179,19 @@ This is my first time creating an R package, and there might be room for improve
 5.  <https://www.runoob.com/git/git-commit.html>
 
 6.  [使用 git 命令行上传项目到 GitHub（以 R 包为例）](https://mp.weixin.qq.com/s/V5UGGAYiJFNicX4yjaBDsA)
+
+7.  [手把手教你做单细胞测序数据分析\|5.细胞类型注释，从入门到入土](https://mp.weixin.qq.com/s/qQUfTTYOCUTbKNZiMOibVg)
+
+8.   CellMarker：[[http://xteam.xbio.top/CellMarker/](http://xteam.xbio.top/CellMarker/)](http://xteam.xbio.top/CellMarker/](http://xteam.xbio.top/CellMarker/))
+
+9.   CellMarker2.0：[[http://117.50.127.228/CellMarker/](http://117.50.127.228/CellMarker/)](http://117.50.127.228/CellMarker/](http://117.50.127.228/CellMarker/))
+
+10. PanglaoDB：[[https://panglaodb.se/index.html](https://panglaodb.se/index.html)](https://panglaodb.se/index.html](https://panglaodb.se/index.html))
+
+## Last but not least
+
+![](test/11.png)
+
+Obviously, currently DXMarkers' functionality is not very robust, and the relevant function code is also quite simple (although, I spent two days and nights debugging the errors just to package it into an R package, sobbing 😭). However, we can still continue to further develop more powerful and practical features, such as incorporating \*\*AI algorithms\*\* to reduce the subjectivity of manual judgments and thereby develop an automated cell type annotation function.
+
+In this regard, I extend an invitation to you. If you have any relevant suggestions or techniques, I welcome further discussion! Hehe! I'm still relatively inexperienced, but achieving these goals is still hopeful.

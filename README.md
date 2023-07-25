@@ -175,3 +175,19 @@ DXMarkers 的主要目标是提供在处理大量单细胞手动注释细胞类�
 5.  <https://www.runoob.com/git/git-commit.html>
 
 6.  [使用 git 命令行上传项目到 GitHub（以 R 包为例）](https://mp.weixin.qq.com/s/V5UGGAYiJFNicX4yjaBDsA)
+
+7.  [手把手教你做单细胞测序数据分析\|5.细胞类型注释，从入门到入土](https://mp.weixin.qq.com/s/qQUfTTYOCUTbKNZiMOibVg)
+
+8.   CellMarker：[[http://xteam.xbio.top/CellMarker/](http://xteam.xbio.top/CellMarker/)](http://xteam.xbio.top/CellMarker/](http://xteam.xbio.top/CellMarker/))
+
+9.  CellMarker2.0：[[http://117.50.127.228/CellMarker/](http://117.50.127.228/CellMarker/)](http://117.50.127.228/CellMarker/](http://117.50.127.228/CellMarker/))
+
+10. PanglaoDB：[[https://panglaodb.se/index.html](https://panglaodb.se/index.html)](https://panglaodb.se/index.html](https://panglaodb.se/index.html))
+
+    ## 写在最后
+
+    ![](test/10.png)
+
+    > 显然，目前DXMarkers的功能并不强大，相关函数代码也十分简单（虽然但是，光打包成R包的报错我调试了两天两夜呜呜呜😭）。但是我们仍然可以继续进一步开发更强大实用的功能，比如加入**AI算法**，降低人为判断的主观性，进而开发自动注释细胞类型的功能。
+    >
+    > 关于此，我向你发出邀请，如果你有相关建议或者技术，欢迎进一步交流！嘻嘻！我还是比较菜的，但是实现起来还是可期的。
