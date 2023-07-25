@@ -12,10 +12,10 @@ library(roxygen2)
 roxygen2::roxygenize()
 
 
-
+devtools::document()
 # Check the package
-#check()
-#devtools::document()
+# check()
+
 
 # 假设你的R包项目目录是"DXMarkers"，请将路径替换为你的实际路径
 getwd()

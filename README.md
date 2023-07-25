@@ -178,11 +178,11 @@ DXMarkers 的主要目标是提供在处理大量单细胞手动注释细胞类�
 
 7.  [手把手教你做单细胞测序数据分析\|5.细胞类型注释，从入门到入土](https://mp.weixin.qq.com/s/qQUfTTYOCUTbKNZiMOibVg)
 
-8.   CellMarker：[[http://xteam.xbio.top/CellMarker/](http://xteam.xbio.top/CellMarker/)](http://xteam.xbio.top/CellMarker/](http://xteam.xbio.top/CellMarker/))
+8.  CellMarker：[[http://xteam.xbio.top/CellMarker/](http://xteam.xbio.top/CellMarker/)](http://xteam.xbio.top/CellMarker/%5D(http://xteam.xbio.top/CellMarker/))
 
-9.  CellMarker2.0：[[http://117.50.127.228/CellMarker/](http://117.50.127.228/CellMarker/)](http://117.50.127.228/CellMarker/](http://117.50.127.228/CellMarker/))
+9.  CellMarker2.0：[[http://117.50.127.228/CellMarker/](http://117.50.127.228/CellMarker/)](http://117.50.127.228/CellMarker/%5D(http://117.50.127.228/CellMarker/))
 
-10. PanglaoDB：[[https://panglaodb.se/index.html](https://panglaodb.se/index.html)](https://panglaodb.se/index.html](https://panglaodb.se/index.html))
+10. PanglaoDB：[[https://panglaodb.se/index.html](https://panglaodb.se/index.html)](https://panglaodb.se/index.html%5D(https://panglaodb.se/index.html))
 
     ## 写在最后
 

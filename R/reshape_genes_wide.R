@@ -3,7 +3,7 @@
 #' @param sorted_genes 经过排序后的基因数据框
 #' @return 一个包含重塑后的基因数据框的list
 #' @export
-#'
+#' @examples
 reshape_genes_wide <- function(sorted_genes) {
   # 将数据按avg_log2FC从大到小排序，然后重塑成宽格式，每个cluster为一列
   genes_wide <- sorted_genes %>%

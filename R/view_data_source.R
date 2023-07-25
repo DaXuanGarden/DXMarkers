@@ -2,6 +2,7 @@
 #' @description This function returns the dataset from a particular data source.
 #' @param data_source A character string specifying the data source to view. It can be either "CellMarker", "CellMarker2.0", or "PanglaoDB".
 #' @return A dataframe containing the dataset from the selected data source.
+#' @export
 #' @examples
 #' \dontrun{
 #'   view_data <- view_data_source(data_source = "CellMarker")

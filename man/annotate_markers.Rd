@@ -26,3 +26,10 @@ A list with two components: "all_filtered_data" which is a list where each eleme
 \description{
 This function filters a preloaded dataset based on provided top 10 genes for each cluster, species, and tissue class. It also allows to view the data from a particular data source.
 }
+\examples{
+\dontrun{
+  data <- list("cluster1" = c("gene1", "gene2"), "cluster2" = c("gene3", "gene4"))
+  result <- annotate_markers(data, "Human", "Brain")
+  view_data <- annotate_markers(data_source = "CellMarker")
+}
+}

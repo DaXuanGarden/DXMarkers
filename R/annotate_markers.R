@@ -5,8 +5,8 @@
 #' @param tissue_class A character string specifying the tissue class.
 #' @param data_source A character string specifying the data source to view. It can be either "CellMarker", "CellMarker2.0", or "PanglaoDB".
 #' @return A list with two components: "all_filtered_data" which is a list where each element is a data frame of filtered data for each cluster, and "all_filtered_data_df" which is a data frame combining all the filtered data.
-#' @examples
 #' @export
+#' @examples
 #' \dontrun{
 #'   data <- list("cluster1" = c("gene1", "gene2"), "cluster2" = c("gene3", "gene4"))
 #'   result <- annotate_markers(data, "Human", "Brain")
