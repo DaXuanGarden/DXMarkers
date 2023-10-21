@@ -76,6 +76,6 @@ annotate_markers <- function(top10_genes_data = NULL, species = NULL, tissue_cla
   # Save the combined data frame as CSV in the DXMarkers folder
   write.csv(all_filtered_data_df, file = "DXMarkers/combined_filtered_data.csv", row.names = FALSE)
 
-  # Return the combined data frame and the list of results
-  return(list(all_filtered_data = all_filtered_data, all_filtered_data_df = all_filtered_data_df))
+  # Return only the combined data frame
+  return(all_filtered_data_df)
 }
