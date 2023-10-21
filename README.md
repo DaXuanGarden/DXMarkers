@@ -1,95 +1,101 @@
-## DXMarkers：用于快速提取 "CellMarker"、"CellMarker2.0" 和 "PanglaoDB" 数据库中的Marker的工具
+## DXMarkers: A tool for rapidly extracting markers from the "CellMarker", "CellMarker2.0", and "PanglaoDB" databases
 
-DXMarkers 是一款精心设计的 R 包，其目标是在单细胞测序(scRNA-seq)分析中手动注释细胞类型时 中提供更高效的工具来区分细胞类型。它利用在特定细胞类型中高表达的基因 - 也称为 Marker，可以在 "CellMarker"、"CellMarker2.0" 和 "PanglaoDB" 这三个主流的 Cell Marker 数据库中进行高效的检索。除此之外，DXMarkers 提供了按物种和组织类型筛选搜索结果的功能，从而可以为用户提供更为精准的信息。![](test/DXMarkers%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E.png)
+DXMarkers is a meticulously designed R package with the aim of providing more efficient tools for manual cell type annotation in single-cell sequencing (scRNA-seq) analysis. It leverages highly expressed genes specific to particular cell types, also known as "Markers," which can be efficiently retrieved from three widely recognized Cell Marker databases: "CellMarker," "CellMarker2.0," and "PanglaoDB." Moreover, DXMarkers offers functionality to filter search results by species and tissue type, enabling users to obtain more accurate information during the process.
 
-## 安装指南
+![](test/DXMarkers%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E.png)
 
-DXMarkers 支持多种安装方式，包括 GitHub、Gitee 和本地安装。
+## Installation Guide
 
-### GitHub安装
+DXMarkers supports various installation methods, including GitHub, Gitee, and local installation.
 
-在从 GitHub 安装 DXMarkers 包之前，确保已经安装了 `devtools` 包。如尚未安装，可以使用 `install.packages("devtools")` 进行安装。安装完毕后，通过执行以下命令安装 DXMarkers：
+### GitHub Installation
 
-    library(devtools)
-    install_github("DaXuanGarden/DXMarkers")
+Before installing the DXMarkers package from GitHub, make sure that the `devtools` package has been installed. If not yet installed, you can install it using `install.packages("devtools")`. After that, install DXMarkers by executing the following command:
 
-### Gitee安装
+``` r
+library(devtools)
+install_github("DaXuanGarden/DXMarkers")
+```
 
-在 Gitee 上安装 DXMarkers 包，首先需要安装 `remotes` 包，通过 `install.packages("remotes")` 进行安装。然后，通过以下命令从 Gitee 安装：
+### Gitee Installation
 
-    remotes::install_git('https://gitee.com/DaXuanGarden/dxmarkers')
+To install the DXMarkers package on Gitee, you first need to install the `remotes` package, which can be installed through `install.packages("remotes")`. Then, install from Gitee using the following command:
 
-### 本地安装
+``` r
+remotes::install_git('https://gitee.com/DaXuanGarden/dxmarkers')
+```
 
-如果选择本地安装，你需要指定 R 包的本地路径。首先设定工作路径，然后加载 `devtools` 包进行安装：
+### Local Installation
 
-    setwd("/home/data")
-    library(devtools)
-    install_local("DXMarkers_1.0.tar.gz")
+For local installation, you need to specify the local path of the R package. First, set the working path, then load the `devtools` package to install:
 
-如果你希望获得支持本地安装的R包文件，你可以关注公众号`大轩的成长花园`并留言`DXMarkers`，大轩会立刻把打包好的安装包发给你。你可以快速按照如上方式安装`DXMarkers`来帮助你进行Marker的批量查询。![](test/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E7%99%BD%E8%89%B2%E7%89%88.png)
+``` r
+setwd("/home/data/t050446/01 Single Cell Project/Acute Pancreatitis")
+library(devtools)
+install_local("/home/data/t050446/Non-tumor research/DXMarkers_1.0.tar.gz")
+```
 
-## 使用前准备
+If you wish to obtain the R package file for local installation, you can follow the official account "大轩的成长花园" (Garden of Da Xuan) and leave a message mentioning "DXMarkers." Da Xuan will promptly send you the packaged installation file. By following the provided instructions, you can quickly install DXMarkers and use it for batch querying of markers, assisting you in your single-cell analysis.![](test/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E7%99%BD%E8%89%B2%E7%89%88.png)
 
-在使用R包进行Marker检索之前，我们需要先对单细胞数据进行处理与分析。
+## Preparation before use
 
-1.  **加载原始数据**：这一步是将原始的基因表达矩阵加载到R环境中，行通常代表基因，列代表细胞。
+Before we use the R package for Marker retrieval, we first need to process and analyze single-cell data.
 
-2.  **创建Seurat对象**：Seurat是一款R包，可以用来分析单细胞RNA测序数据。我们需要先创建一个Seurat对象，用来储存和操作数据。
+1.  **Load raw data**：This step is to load the raw gene expression matrix into the R environment, where rows typically represent genes and columns represent cells.
 
-3.  **数据预处理与质量控制**：在此步骤中，我们会移除表达基因过少或过多的细胞，以及含有过多线粒体基因的细胞。
+2.  **Create a Seurat object**：Seurat is an R package for single-cell RNA-seq data analysis. We first need to create a Seurat object to store and manipulate the data.
 
-4.  **数据归一化**：这一步将每个细胞的基因表达量按照其总表达量进行归一化，以消除细胞间的技术差异。
+3.  **Data preprocessing and quality control**：In this step, we will remove cells with too few or too many expressed genes, as well as cells with a high proportion of mitochondrial genes.
 
-5.  **寻找高变异基因**：高变异基因是在不同细胞中表达量差异大的基因，这些基因可以用来区分不同的细胞类型。
+4.  **Data normalization**：This step normalizes the gene expression level of each cell by its total expression, to eliminate technical variations between cells.
 
-6.  **数据缩放和线性降维**：这一步是为了减少数据的维度，以便进行后续的聚类分析。
+5.  **Find highly variable genes**：Highly variable genes are genes that show large differences in expression levels among different cells. These genes can be used to distinguish different cell types.
 
-7.  **细胞聚类**：将具有相似基因表达模式的细胞聚集在一起。
+6.  **Data scaling and linear dimension reduction**：This step is to reduce the dimensionality of the data for subsequent clustering analysis.
 
-8.  **非线性降维**：非线性降维（如t-SNE或UMAP）可以帮助我们在二维平面上可视化高维的单细胞数据。
+7.  **Cell clustering**：Group cells with similar gene expression patterns together.
 
-9.  **绘制聚类结果**：将每个细胞根据其聚类结果绘制在二维平面上，以观察不同细胞群体的分布。
+8.  **Non-linear dimension reduction**：Non-linear dimension reduction techniques such as t-SNE or UMAP can help us visualize high-dimensional single-cell data on a two-dimensional plane.
 
-10. **寻找标记基因**：标记基因是用来标识特定细胞群体的基因，其在该细胞群体中的表达量要明显高于其他细胞群体。
+9.  **Plotting clustering results**：Plot each cell on a two-dimensional plane according to its clustering results, to observe the distribution of different cell populations.
 
--   下面是一段示例代码，它展示了如何寻找Marker并筛选到每个cluster排名前十的Marker。
+10. **Finding marker genes**：Marker genes are used to identify specific cell populations, and their expression levels are significantly higher in that cell population than in other cell populations.
 
-<!-- -->
+-   The following is a sample code that demonstrates how to process single-cell data using the Seurat library.
 
-    # 手动注释
-    # 加载Seurat库
+    ``` r
+    # Manual Annotation
+    # Load Seurat library
     library(Seurat)
-    # 加载数据 ###数据已经经过上述全部操作。
+    # Load data
     scRNA <- readRDS(file = "scRNA.rds")
-    # 寻找所有聚类的标记基因
+    # Find markers for all clusters
     scRNA.markers <- FindAllMarkers(scRNA, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
-    # 筛选p_val<0.05的基因
+    # Filter out genes with p_val < 0.05
     all.markers <- scRNA.markers %>%
-      dplyr::select(gene, everything()) %>%
-      dplyr::filter(p_val < 0.05)
-    # 将avg_log2FC排名前10的基因筛选出来
+    dplyr::select(gene, everything()) %>%
+    dplyr::filter(p_val < 0.05)
+    # Select top 10 genes by avg_log2FC
     top10 <- all.markers %>%
-      group_by(cluster) %>%
-      top_n(n = 10, wt = avg_log2FC)
-    # 输出筛选结果，输出p_val<0.05的基因
+    group_by(cluster) %>%
+    top_n(n = 10, wt = avg_log2FC)
+    # Write out the results, output genes with p_val < 0.05
     write.csv(all.markers, file = "all_markers.csv", row.names = FALSE)
-    # 输出avg_log2FC排名前10的基因
+    # Output top 10 genes by avg_log2FC
     write.csv(top10, file = "top10_genes.csv", row.names = FALSE)
-    # 绘制前10个标记基因的热图
+    # Draw heatmap of top 10 marker genes
     DoHeatmap(scRNA, features = top10$gene)
-    # 绘制前20个标记基因的小提琴图
+    # Draw violin plot of top 20 marker genes
     VlnPlot(scRNA, features = top10$gene[1:20], pt.size = 0)
-    # 绘制降维图
+    # Draw dimensionality reduction plot
     DimPlot(scRNA, label = TRUE, reduction = "tsne")
+    ```
 
-在上述数据读取与处理后，你会得到单细胞数据关于Marker的列表，这是`DXMarkers`的**最初的**输入文件。
+After the data is read and processed as described above, you will obtain a list of markers related to single-cell data. This list serves as the initial input file for DXMarkers.![](test/1.png)
 
-![](test/1.png){width="13.8cm" height="8.9cm"}
+## Data Processing
 
-## 数据处理
-
-使用 DXMarkers 的 `reshape_genes_wide` 函数进行数据处理，然后将结果保存到文件：
+Process data using the `reshape_genes_wide` function in DXMarkers, then save the result to a file:
 
 ``` r
 library(DXMarkers)
@@ -100,9 +106,9 @@ write.csv(sorted_result, file = "top10_sorted_genes.csv", row.names = FALSE)
 
 ![](test/2.png)
 
-## 检索 Marker
+## Marker Retrieval
 
-在完成数据处理后，使用 DXMarkers 的 `annotate_markers` 函数进行一键式检索 Marker：
+After the data processing, use the `annotate_markers` function in DXMarkers for one-click marker retrieval:
 
 ``` r
 library(DXMarkers)
@@ -112,9 +118,9 @@ DXMarkers_result <- annotate_markers(top10_genes_data, "Mouse", "Pancreas")
 
 ![](test/3.png)
 
-## 查看数据源
+## View Data Source
 
-使用 DXMarkers 的 `view_data_source` 函数，你可以查看内建的 "CellMarker"、"CellMarker2.0" 或 "PanglaoDB" 数据库的完整数据集：
+With the `view_data_source` function in DXMarkers, you can view the complete dataset of the built-in "CellMarker", "CellMarker2.0", or "PanglaoDB" database:
 
 ``` r
 library(DXMarkers)
@@ -122,7 +128,7 @@ data_source <- "CellMarker"
 data <- view_data_source(data_source = data_source)
 ```
 
-![](test/4.png){width="591"}
+![](test/4.png)
 
     library(DXMarkers)
     data_source <- "CellMarker2.0"
@@ -136,33 +142,31 @@ data <- view_data_source(data_source = data_source)
 
 ![](test/6.png){width="590"}
 
-## 帮助与反馈
+## Help and Feedback
 
-DXMarkers 的主要目标是提供在处理大量单细胞手动注释细胞类型时的有效工具，帮助用户快速准确地检索各数据库中的 Marker 信息。无论你是单细胞数据分析的新手，还是经验丰富的研究者，DXMarkers 都能帮你节省时间，提高效率。
+DXMarkers is a meticulously designed R package with the primary goal of providing efficient tools for manual cell type annotation in single-cell sequencing (scRNA-seq) analysis. It aims to help users swiftly and accurately retrieve marker information from various databases. Whether you are a newcomer to single-cell data analysis or an experienced researcher, DXMarkers can save you time and enhance your efficiency.
 
-如果你在上述任何一个环节遇到问题，或者你有更好建议，比如你希望添加更多*单细胞注释数据库的数据集*，都可以在微信公众号`大轩的成长花园`留言，大轩🐾会在看到留言后及时回复你哦！当然，你也可以发邮件给大轩，大轩的邮箱：daxuan111000\@163.com，让我们分享彼此的知识，交流彼此的心得，共同成长。
+If you encounter any challenges during any of the aforementioned processes or have valuable suggestions, such as the desire to include additional datasets from single-cell annotation databases, you are welcome to leave a message on the WeChat official account "Garden of Da Xuan 🐾." Da Xuan 🐾 will promptly respond to your message! Alternatively, you can also reach out to Da Xuan via email at daxuan111000\@163.com, enabling us to share knowledge, exchange insights, and grow together.
 
-👀如果希望增加更多单细胞注释数据库的数据集，请在确保相关数据库支持下载全部注释数据的前提下，以`“数据库名称+网址+下载按钮的截图”`的形式发邮箱或公众号留言给大轩🐾。大轩🐾非常欢迎大家为`DXMarkers`提供更多建设性建议并且能够增加更多数据集来使我们的结果更加全面可靠。嘻嘻！期待你的留言！😀加油鸭！
+👀 For those interested in adding more datasets from single-cell annotation databases, kindly send an email or leave a message on the official account "Garden of Da Xuan 🐾" in the format "Database Name + Website + Screenshot of the Download Button." This ensures that the relevant database supports the download of all annotation data. Da Xuan 🐾 warmly welcomes everyone to provide constructive suggestions and contribute additional datasets, further enhancing the comprehensiveness and reliability of DXMarkers. Hehe! We look forward to your messages! 😀 Keep up the good work!
 
-## 大轩碎碎念
+## Da Xuan's Thoughts
 
-嘻嘻！你可以先使用自动注释软件，比如`scCATCH`、`SingleR`来进行自动注释，大致了解一下可能的细胞类型，然后再使用`DXMarkers`进行手动注释呦！🎉
+Hehe! You can begin with using automated annotation software like scCATCH and SingleR to gain a general understanding of possible cell types. Then, utilize DXMarkers for manual annotation! 🎉
 
-如果你希望获得关于使用`SingleR`、`scCATCH`的更多帮助，同样可以给大轩🐾留言。当然，大轩也非常期待你能有更好的自动注释工具给大轩🐾分享！期待你的分享！
+For those seeking more assistance with SingleR and scCATCH, feel free to reach out and leave a message for Da Xuan 🐾. Of course, Da Xuan is also excited to learn about better automated annotation tools from you! We await your contributions!
 
-下面是大轩使用`SingleR`、`scCATCH`的自动注释的结果，你可以参考：![](test/8.jpg)
+Below are the results of Da Xuan using SingleR and scCATCH for automated annotation, which you may find helpful:![](test/8.jpg)
 
-## 开发历程
+## Development Journey
 
-嘿嘿！其实只是在细胞手动注释的过程中，感觉一个一个到数据库里面查询然后在手动复制粘贴到Excel中太消耗时间。在一些科研交流群里面请教了许多，在微信公众号和谷歌、Bing、百度等搜索引擎里面搜索很多后，发现正好缺少这样的快速批量的查询工具。 于是，便自己尝试写函数写R包，方便快速批量查询Marker对应的细胞类型。
+Hey! It all started when I was manually annotating cells and realized that searching databases one by one and manually copying and pasting information into Excel was too time-consuming. After seeking advice from several research groups and conducting searches on WeChat official accounts, Google, Bing, Baidu, and other search engines, I discovered a lack of a quick and batch querying tool like this. So, I decided to write functions and create an R package to enable fast and batch querying of cell types associated with markers.
 
-请注意，与已知的很多自动注释工具相同，`DXMarkers`并不能完全代替手动查询数据库、查阅SCI英文文献来考察Marker的生物学背景的动作，仅仅作为提高细胞注释效率的辅助手段。
+Please note that, similar to many existing automated annotation tools, DXMarkers cannot fully replace the actions of manually querying databases and studying marker biology through scientific literature. Its purpose is to serve as an auxiliary tool to boost cell annotation efficiency.
 
-这是大轩第一次写R包，很多内容可能并不完美，非常感谢大家的包容并且邀请大家一起提出宝贵建议，让大轩能够尽快成长起来！
+This is my first time creating an R package, and there might be room for improvement. I sincerely appreciate everyone's understanding and invitation to offer valuable suggestions, aiding in Da Xuan's rapid growth!![](test/9.jpg)
 
-![](test/9.jpg)
-
-## 参考资料
+## References
 
 1.  [如何快速写一个R包 \| KeepNotes blog (bioinfo-scrounger.com)](https://www.bioinfo-scrounger.com/archives/546/)
 
@@ -184,10 +188,10 @@ DXMarkers 的主要目标是提供在处理大量单细胞手动注释细胞类�
 
 10. PanglaoDB：[[https://panglaodb.se/index.html](https://panglaodb.se/index.html)](https://panglaodb.se/index.html%5D(https://panglaodb.se/index.html))
 
-    ## 写在最后
+## Last but not least
 
-    ![](test/10.png)
+![](test/11.png)
 
-    > 显然，目前DXMarkers的功能并不强大，相关函数代码也十分简单（虽然但是，光打包成R包的报错我调试了两天两夜呜呜呜😭）。但是我们仍然可以继续进一步开发更强大实用的功能，比如加入**AI算法**，降低人为判断的主观性，进而开发自动注释细胞类型的功能。
-    >
-    > 关于此，我向你发出邀请，如果你有相关建议或者技术，欢迎进一步交流！嘻嘻！我还是比较菜的，但是实现起来还是可期的。
+Obviously, currently DXMarkers' functionality is not very robust, and the relevant function code is also quite simple (although, I spent two days and nights debugging the errors just to package it into an R package, sobbing 😭). However, we can still continue to further develop more powerful and practical features, such as incorporating \*\*AI algorithms\*\* to reduce the subjectivity of manual judgments and thereby develop an automated cell type annotation function.
+
+In this regard, I extend an invitation to you. If you have any relevant suggestions or techniques, I welcome further discussion! Hehe! I'm still relatively inexperienced, but achieving these goals is still hopeful.
